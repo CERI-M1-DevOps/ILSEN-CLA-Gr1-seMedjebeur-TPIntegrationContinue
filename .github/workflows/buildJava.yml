@@ -9,3 +9,5 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - name: Récupération du dépôt
+        uses: actions/checkout@v4
