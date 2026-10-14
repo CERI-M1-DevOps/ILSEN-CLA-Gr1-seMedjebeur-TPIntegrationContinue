@@ -4,12 +4,13 @@ on:
   pull_request:
     types: [closed]
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   documentation:
     name: Documentation
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     steps:
       - name: Récupération du dépôt
         uses: actions/checkout@v4
@@ -20,6 +21,8 @@ jobs:
           distribution: 'corretto'
       - name: Génération de la documentation Javadoc
         run: mvn -B javadoc:javadoc
+      - name: Diagnostic - localiser les fichiers HTML générés
+        run: find target -iname "*.html" -o -iname "*.css" | sort
       - name: Déploiement de la documentation sur GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
