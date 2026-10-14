@@ -21,10 +21,8 @@ jobs:
           distribution: 'corretto'
       - name: Génération de la documentation Javadoc
         run: mvn -B javadoc:javadoc
-      - name: Diagnostic - localiser les fichiers HTML générés
-        run: find target -iname "*.html" -o -iname "*.css" | sort
       - name: Déploiement de la documentation sur GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/site/apidocs
+          publish_dir: ./target/reports/apidocs
