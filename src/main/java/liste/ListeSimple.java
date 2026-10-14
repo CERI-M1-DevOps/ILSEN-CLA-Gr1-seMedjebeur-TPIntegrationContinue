@@ -15,7 +15,7 @@ public class ListeSimple {
 
     public void modifiePremier(Object element, Object nouvelleValeur) {
         Noeud courant = tete;
-        while (courant != null && courant.getElement() != element)
+        while (courant != null && !courant.getElement().equals(element))
             courant = courant.getSuivant();
         if (courant != null)
             courant.setElement(nouvelleValeur);
@@ -24,12 +24,13 @@ public class ListeSimple {
     public void modifieTous(Object element, Object nouvelleValeur) {
         Noeud courant = tete;
         while (courant != null) {
-            if (courant.getElement() == element)
+            if (courant.getElement().equals(element))
                 courant.setElement(nouvelleValeur);
             courant = courant.getSuivant();
         }
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("ListeSimple(");
         Noeud n = tete;
@@ -45,14 +46,14 @@ public class ListeSimple {
 
     public void supprimePremier(Object element) {
         if (tete != null) {
-            if (tete.getElement() == element) {
+            if (tete.getElement().equals(element)) {
                 tete = tete.getSuivant();
                 size--;
                 return;
             }
             Noeud precedent = tete;
             Noeud courant = tete.getSuivant();
-            while (courant != null && courant.getElement() != element) {
+            while (courant != null && !courant.getElement().equals(element)) {
                 precedent = precedent.getSuivant();
                 courant = courant.getSuivant();
             }
@@ -67,15 +68,15 @@ public class ListeSimple {
        tete = supprimeTousRecurs(element, tete);
     }
 
-    public Noeud supprimeTousRecurs(Object element, Noeud tete) {
-        if (tete != null) {
-            Noeud suiteListe = supprimeTousRecurs(element, tete.getSuivant());
-            if (tete.getElement() == element) {
+    private Noeud supprimeTousRecurs(Object element, Noeud noeud) {
+        if (noeud != null) {
+            Noeud suiteListe = supprimeTousRecurs(element, noeud.getSuivant());
+            if (noeud.getElement().equals(element)) {
                 size--;
                 return suiteListe;
             } else {
-                tete.setSuivant(suiteListe);
-                return tete;
+                noeud.setSuivant(suiteListe);
+                return noeud;
             }
         } else return null;
     }
