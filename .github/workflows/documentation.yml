@@ -10,6 +10,8 @@ jobs:
     name: Documentation
     runs-on: ubuntu-latest
     if: github.event.pull_request.merged == true
+    permissions:
+      contents: write
     steps:
       - name: Récupération du dépôt
         uses: actions/checkout@v4
@@ -24,4 +26,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/site/apidocs
+          publish_dir: ./target/reports/apidocs
