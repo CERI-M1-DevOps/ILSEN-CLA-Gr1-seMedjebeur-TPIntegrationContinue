@@ -16,3 +16,5 @@ jobs:
         with:
           java-version: '21'
           distribution: 'corretto'
+      - name: Construction et tests avec Maven
+        run: mvn -B package
